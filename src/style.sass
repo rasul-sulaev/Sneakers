@@ -1,0 +1,117 @@
+$grayText: #9D9D9D
+$green: #9DD458
+
+
+@font-face
+  font-family: 'Inter'
+  src: url('../public/fonts/Inter/Inter-Regular.woff2') format('woff2')
+  font-weight: normal
+  font-style: normal
+@font-face 
+  font-family: 'Inter'
+  src: url('../public/fonts/Inter/Inter-Medium.woff2') format('woff2')
+  font-weight: 500
+  font-style: normal
+@font-face
+  font-family: 'Inter'
+  src: url('../public/fonts/Inter/Inter-SemiBold.woff2') format('woff2')
+  font-weight: 600
+  font-style: normal
+@font-face
+  font-family: 'Inter'
+  src: url('../public/fonts/Inter/Inter-Bold.woff2') format('woff2')
+  font-weight: bold
+  font-style: normal
+
+
+
+body
+  margin: 0
+  padding: 0
+  font-family: system-ui, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  background-color: #E7F6FF
+
+*
+  font-family: "Inter", sans-serif
+  transition: all 200ms ease-in-out
+
+a
+  color: inherit
+
+svg
+  transition: none
+  *
+    transition: none
+
+
+.wrapper 
+  margin: 85px auto
+  max-width: 1080px
+  width: 100%
+  border-radius: 20px
+  box-sizing: border-box
+  background-color: #ffffff
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04)
+
+
+// Header
+.header 
+  padding: 45px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  border-bottom: 1px solid #EAEAEA
+  box-sizing: border-box
+  &__logo
+    text-decoration: none
+    display: flex
+    align-items: center
+    gap: 16px
+    &-img
+      vertical-align: middle
+    &-title
+      margin: 0
+      font-size: 20px
+      font-weight: 700
+    &-description
+      font-size: 14px
+      color: $grayText
+  &__links
+    display: flex
+    align-items: center
+    gap: 20px
+  &__link
+    color: $grayText
+    font-size: 14px
+    font-weight: 600
+    display: flex
+    align-items: center
+    gap: 10px
+    border: 0
+    background-color: transparent
+    cursor: pointer
+    svg
+      color: currentColor
+    &:hover
+      color: $green
+    span
+      color: #5C5C5C
+  
+
+// Section
+.section
+  &__title
+    margin: 0 0 40px
+    font-size: 32px
+    font-weight: 700
+
+
+// Content
+.content
+  padding: 40px
+
+
+
+// Footer
