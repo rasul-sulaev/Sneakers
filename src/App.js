@@ -19,7 +19,9 @@ function App() {
 					<div className="cards__list">
 						<div className="card">
 							<div className="card__img-block">
-								<button className="card__btn-favorite"></button>
+								<button className="card__btn-favorite">
+									<img src="img/icons/heart-outline.png" width={16} height={15} alt=""/>
+								</button>
 								<img className="card__img" src="/img/products/1.png" width={133} height={112}></img>
 							</div>
 							<p className="card__title">Мужские Кроссовки Nike Blazer Mid Suede</p>
@@ -33,7 +35,9 @@ function App() {
 						</div>
 						<div className="card">
 							<div className="card__img-block">
-								<button className="card__btn-favorite card__btn-favorite_active"></button>
+								<button className="card__btn-favorite card__btn-favorite_active" style={{background: '#FEF0F0'}}>
+									<img src="img/icons/heart.svg" width={16} height={15} alt=""/>
+								</button>
 								<img className="card__img" src="/img/products/2.png" width={133} height={112}></img>
 							</div>
 							<p className="card__title">Мужские Кроссовки Nike Blazer Mid Suede</p>
