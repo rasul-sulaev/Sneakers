@@ -12,6 +12,7 @@ body
 *
   font-family: "Inter", sans-serif
   transition: all 200ms ease-in-out
+  outline: none
 
 a
   color: inherit
@@ -30,6 +31,38 @@ svg
   box-sizing: border-box
   background-color: #ffffff
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04)
+
+
+// Section
+.section
+  &__header
+    margin: 0 0 40px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 20px
+    &-title
+      margin: 0
+      font-size: 32px
+      font-weight: 700
+
+
+// Search
+.search__input
+  padding: 15px 0 15px 40px
+  width: 200px
+  height: 40px
+  font-size: 13px
+  border: 1px solid #F3F3F3
+  border-radius: 8px
+  box-sizing: border-box
+  background: url("../public/img/icons/search.svg") no-repeat 15px
+  background-size: 14px
+  &::placeholder
+    color: #C4C4C4
+  &:focus
+    border-color: $green
+    background-image: url("../public/img/icons/search-green.svg")
 
 
 // Header
@@ -76,12 +109,7 @@ svg
       color: #5C5C5C
   
 
-// Section
-.section
-  &__title
-    margin: 0 0 40px
-    font-size: 32px
-    font-weight: 700
+
 
 
 // Content

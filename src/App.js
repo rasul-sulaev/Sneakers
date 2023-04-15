@@ -10,7 +10,12 @@ function App() {
 
         </section>
 				<section className="section">
-					<h2 className="section__title">Все кроссовки</h2>
+					<div className="section__header">
+						<h2 className="section__header-title">Все кроссовки</h2>
+						<form className="search" action="">
+							<input className="search__input" type="text" placeholder="Поиск..."/>
+						</form>
+					</div>
 					<div className="cards__list">
 						<div className="card">
 							<div className="card__img-block">
