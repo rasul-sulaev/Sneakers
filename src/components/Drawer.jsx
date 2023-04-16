@@ -3,7 +3,7 @@ import {ReactComponent as IconArrowRight} from "../assets/img/icons/arrow-right.
 
 export const Drawer = () => {
 	return (
-		<div className="overlay" >
+		<div className="overlay" style={{ display: 'none' }}>
 			<div className="cart drawer">
 				<div className="drawer__header section__header">
 					<h3 className="section__header-title">Корзина</h3>
