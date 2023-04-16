@@ -9,7 +9,7 @@ function App() {
 			<Header />
       <main className="content">
 
-				<div className="overlay" >
+
 					<Drawer />
 				</div>
 
