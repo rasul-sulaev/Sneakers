@@ -2,7 +2,6 @@ import { ReactComponent as IconUser } from "../assets/img/icons/user.svg";
 import { ReactComponent as IconFavorite } from "../assets/img/icons/favorite.svg";
 import { ReactComponent as IconBasket } from "../assets/img/icons/basket.svg";
 
-
 export const Header = () => {
 	return (
 		<header className="header">
