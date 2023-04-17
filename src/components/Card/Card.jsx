@@ -1,14 +1,14 @@
 import styles from "./Card.module.sass";
+import {useState} from "react";
 
 export const Card = ({imgUrl, imgAlt, title, price, favorited, added}) => {
 
-	const handleCardLike = () => {
-		alert(123);
+	/** Состояние кнопки CardBtnAdd **/
+	const [isAdded, setIsAdded] = useState(false);
+	const handleCardAdd = () => {
+		setIsAdded(!isAdded);
 	}
 
-	const handleCardAdd = (title) => {
-		alert(title);
-	}
 
 	let btnFavorite = favorited ? (
 		<button className={`${styles.card__btnFavorite} ${styles.card__btnFavoriteActive}`}>
@@ -33,8 +33,8 @@ export const Card = ({imgUrl, imgAlt, title, price, favorited, added}) => {
 					<span className={styles.card__price}>{price}</span>
 				</div>
 				<button
-					className={styles.card__btnAdd + (added ? ` ${styles.card__btnAddActive}` : ``)}
-					onClick={() => handleCardAdd(title)}
+					className={isAdded ? `${styles.card__btnAdd} ${styles.card__btnAddActive}` : `${styles.card__btnAdd}`}
+					onClick={handleCardAdd}
 				></button>
 			</div>
 		</div>
