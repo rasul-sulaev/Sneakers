@@ -2,7 +2,7 @@ import { ReactComponent as IconUser } from "../assets/img/icons/user.svg";
 import { ReactComponent as IconFavorite } from "../assets/img/icons/favorite.svg";
 import { ReactComponent as IconBasket } from "../assets/img/icons/basket.svg";
 
-export const Header = () => {
+export const Header = ({onClickBasket}) => {
 	return (
 		<header className="header">
 			<a className="header__logo" href="/">
@@ -13,7 +13,10 @@ export const Header = () => {
 				</div>
 			</a>
 			<div className="header__links">
-				<button className="header__link">
+				<button
+					className="header__link"
+					onClick={onClickBasket}
+				>
 					<IconBasket width={20} height={20} stroke="currentColor" />
 					<span>1205 руб.</span>
 				</button>

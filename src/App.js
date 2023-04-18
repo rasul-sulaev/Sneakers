@@ -2,8 +2,12 @@ import './style.sass'
 import {Header} from "./components/Header";
 import {Card} from "./components/Card/Card";
 import {Drawer} from "./components/Drawer";
+import {useState} from "react";
 
 function App() {
+	/** Состояние Корзины **/
+	const [isOpenedCart, setIsOpenedCart] = useState(false);
+
 
 	const items = [
 		{
@@ -20,7 +24,7 @@ function App() {
   return (
 		<>
 			<div className="wrapper">
-				<Header />
+				<Header onClickBasket={() => setIsOpenedCart(true)} />
 				<main className="content">
 					<section className="slider section">
 
@@ -51,7 +55,7 @@ function App() {
 					</section>
 				</main>
 			</div>
-			<Drawer />
+			{isOpenedCart && <Drawer onClose={() => setIsOpenedCart(false)} />}
 		</>
   );
 }

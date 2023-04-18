@@ -1,13 +1,13 @@
 import {ReactComponent as IconTimes} from "../assets/img/icons/times.svg";
 import {ReactComponent as IconArrowRight} from "../assets/img/icons/arrow-right.svg";
 
-export const Drawer = () => {
+export const Drawer = ({onClose}) => {
 	return (
-		<div className="overlay" style={{ display: 'none' }}>
+		<div className="overlay">
 			<div className="cart drawer">
 				<div className="drawer__header section__header">
 					<h3 className="section__header-title">Корзина</h3>
-					<button className="drawer__close" title="Закрыть">
+					<button className="drawer__close" title="Закрыть" onClick={onClose}>
 						<IconTimes fill="currentColor" />
 					</button>
 				</div>
