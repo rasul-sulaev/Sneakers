@@ -72,8 +72,7 @@ function App() {
 										imgAlt={item.imgAlt}
 										title={item.title}
 										price={`${item.price} руб.`}
-										favorite={false}
-										onAdd={(cartItem) => onAddToCart(item)}
+										onAdd={() => onAddToCart(item)}
 									/>
 								)
 							})}
