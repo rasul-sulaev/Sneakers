@@ -14,6 +14,9 @@ function App() {
 	/** Массив Товаров в Корзине **/
 	const [cartItems, setCartItems] = useState([]);
 
+	/** Состояние Поля поиска **/
+	const [searchValue, setSearchValue] = useState('');
+
 	/** Отправка запроса на получение данных с сервера **/
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_URL}`)
@@ -39,13 +42,13 @@ function App() {
 				<main className="content">
 					<section className="section">
 						<div className="section__header">
-							<h2 className="section__header-title">Все кроссовки</h2>
+							<h2 className="section__header-title">{searchValue ? `Поиск по запросу: "${searchValue}"`: 'Все кроссовки'}</h2>
 							<form className="search" action="">
-								<input className="search__input" type="text" placeholder="Поиск..."/>
+								<input className="search__input" type="text" placeholder="Поиск..." onInput={(e) => setSearchValue(e.target.value)} value={searchValue}/>
 							</form>
 						</div>
 						<div className="cards__list">
-							{items.map((item) => {
+							{items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase())).map((item) => {
 								return (
 									<Card
 										key={item.id}
