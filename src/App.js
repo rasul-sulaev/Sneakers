@@ -1,8 +1,10 @@
 import './style.sass'
+import axios from "axios";
 import {Header} from "./components/Header";
 import {Card} from "./components/Card/Card";
 import {Drawer} from "./components/Drawer";
 import {useEffect, useState} from "react";
+
 
 function App() {
 	/** Состояние Корзины **/
@@ -19,10 +21,8 @@ function App() {
 
 	/** Отправка запроса на получение данных с сервера **/
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}`)
-			.then(res => res.json())
-			.then(data => setItems(data))
-			.catch(err => console.log(err))
+		axios.get(process.env.REACT_APP_API_URL)
+			.then(res => setItems(res.data));
 	}, [])
 
 
