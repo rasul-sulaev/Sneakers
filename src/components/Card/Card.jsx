@@ -1,29 +1,28 @@
 import styles from "./Card.module.sass";
 import {useState} from "react";
 
-export const Card = ({imgUrl, imgAlt, title, price, favorited, added}) => {
+export const Card = ({id, imgUrl, imgAlt, title, price, favorite, onAdd}) => {
 
 	/** Состояние кнопки CardBtnAdd **/
 	const [isAdded, setIsAdded] = useState(false);
 	const handleCardAdd = () => {
 		setIsAdded(!isAdded);
+		onAdd({id, imgUrl, imgAlt, title, price});
 	}
 
-
-	let btnFavorite = favorited ? (
-		<button className={`${styles.card__btnFavorite} ${styles.card__btnFavoriteActive}`}>
-			<img src="img/icons/heart.svg" width={16} height={15} alt=""/>
-		</button>
-	) : (
-		<button className={styles.card__btnFavorite}>
-			<img src="img/icons/heart-outline.png" width={16} height={15} alt=""/>
-		</button>
-	)
 
 	return (
 		<div className={styles.card}>
 			<div className={styles.card__imgBlock}>
-				{btnFavorite}
+				{favorite ? (
+					<button className={`${styles.card__btnFavorite} ${styles.card__btnFavoriteActive}`}>
+						<img src="img/icons/heart.svg" width={16} height={15} alt=""/>
+					</button>
+				) : (
+					<button className={styles.card__btnFavorite}>
+						<img src="img/icons/heart-outline.png" width={16} height={15} alt=""/>
+					</button>
+				)}
 				<img className={styles.card__img} src={imgUrl} width={133} height={112} alt={imgAlt}></img>
 			</div>
 			<p className={styles.card__title}>{title}</p>
