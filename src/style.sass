@@ -82,6 +82,26 @@ svg
     background-color: lighten($green, 3%)
   &:active
     background-color: darken($green, 3%)
+  &_arrow-left,
+  &_arrow-right
+    position: relative
+    svg
+      position: absolute
+      transition: transform 200ms ease-in-out
+  &_arrow-left
+    &:hover
+      svg
+        transform: translateX(-5px) rotate(180deg)
+    svg
+      left: 30px
+      transform: rotate(180deg)
+  &_arrow-right
+    &:hover
+      svg
+        transform: translateX(5px)
+    svg
+      right: 30px
+
 
 .wrapper 
   margin: 85px auto
@@ -221,6 +241,28 @@ svg
     margin-right: -12px
     padding-right: 12px
     overflow: auto
+    &_empty
+      height: 100%
+      text-align: center
+      display: flex
+      flex-direction: column
+      justify-content: center
+    &-img
+      margin: 0 auto 20px
+    &-title
+      margin: 0
+      font-size: 22px
+      font-weight: 600
+    &-description
+      max-width: 285px
+      margin: 10px auto 0
+      color: rgba(#000000, 0.4)
+      font-size: 16px
+      line-height: 1.4
+    &-btn
+      margin: 40px auto 0
+      max-width: 270px
+      width: 100%
   &__bottom
     margin-top: auto
     display: flex
@@ -286,12 +328,3 @@ svg
           flex-grow: 1
           height: 1px
           background: linear-gradient(90deg, transparent 50%, #D3D3D3 50%) repeat-x center / 8px
-    .btn
-      position: relative
-      &:hover
-        svg
-          transform: translateX(5px)
-      svg
-        position: absolute
-        right: 30px
-        transition: transform 200ms ease-in-out
