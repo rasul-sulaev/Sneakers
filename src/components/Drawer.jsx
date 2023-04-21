@@ -16,16 +16,16 @@ export const Drawer = ({onClose, cartItems, onRemoveItem}) => {
 						<div className="carts__list drawer__content">
 							{cartItems.map(item => {
 								return (
-										<div className="cart__item">
-											<img className="cart__item-title" src={`/img/products/${item.imgUrl}`} width={70} height={70} alt={item.imgAlt}/>
-											<div className="cart__item-info">
-												<p className="cart__item-title">{item.title}</p>
-												<span className="cart__item-price">{item.price}</span>
-											</div>
-											<button className="cart__item-btn-delete" onClick={() => onRemoveItem(item.id)}>
-												<IconTimes fill="currentColor" />
-											</button>
+									<div className="cart__item">
+										<img className="cart__item-title" src={`/img/products/${item.imgUrl}`} width={70} height={70} alt={item.imgAlt}/>
+										<div className="cart__item-info">
+											<p className="cart__item-title">{item.title}</p>
+											<span className="cart__item-price">{item.price}</span>
 										</div>
+										<button className="cart__item-btn-delete" onClick={() => onRemoveItem(item.id)}>
+											<IconTimes fill="currentColor" />
+										</button>
+									</div>
 								)
 							})}
 						</div>
