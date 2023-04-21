@@ -26,20 +26,21 @@ function App() {
 	}, [])
 
 
-	/** Отправка запроса на получение Товароа в Коризне с сервера **/
+	/** Отправка запроса на получение Товаров в Коризне с сервера **/
 	useEffect(() => {
 		axios.get(`${process.env.REACT_APP_API_URL}/cart`)
-				.then(res => setCartItems(items.filter(item => res.data.some(cartItem => cartItem.id === item.id))));
-	}, [items])
-
+			.then(res => setCartItems(res.data));
+	}, [])
 
 	/** Функция Добавления/Удаления товара в Корзину **/
-	const onAddToCart = (cartItem) => {
-		if (cartItems.some(item => item.id === cartItem.id)) {
-			setCartItems(cartItems.filter(item => item.id !== cartItem.id));
+	const onAddToCart = (card) => {
+		if (cartItems.some(cartItem => cartItem.code === card.code)) {
+			const cardCode = cartItems.find(cartItem => cartItem.code === card.code);
+			axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardCode.id}`)
+				.then(res => setCartItems(cartItems.filter(cartItem => cartItem.code !== res.data.code)))
 		} else {
-			axios.post(`${process.env.REACT_APP_API_URL}/cart`, {id_product: cartItem.id})
-			setCartItems(prev => [...prev, cartItem]);
+			axios.post(`${process.env.REACT_APP_API_URL}/cart`, card)
+				.then(res => setCartItems(prevState => [...prevState, res.data]))
 		}
 	}
 
@@ -49,6 +50,7 @@ function App() {
 		axios.delete(`${process.env.REACT_APP_API_URL}/cart/${id}`)
 		setCartItems(prev => prev.filter(item => item.id !== id));
 	}
+
 
   return (
 		<>
@@ -68,11 +70,13 @@ function App() {
 									<Card
 										key={item.id}
 										id={item.id}
-										imgUrl={`/img/products/${item.imgUrl}`}
+										code={item.code}
+										imgUrl={item.imgUrl}
 										imgAlt={item.imgAlt}
 										title={item.title}
 										price={`${item.price} руб.`}
-										onAdd={() => onAddToCart(item)}
+										isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
+										onAddToCart={(card) => onAddToCart(card)}
 									/>
 								)
 							})}
