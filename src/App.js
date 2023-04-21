@@ -7,17 +7,11 @@ import {useEffect, useState} from "react";
 
 
 function App() {
-	/** Состояние Корзины **/
-	const [isOpenedCart, setIsOpenedCart] = useState(false);
-
-	/** Состояние массива товаров **/
 	const [items, setItems] = useState([]);
-
-	/** Массив Товаров в Корзине **/
 	const [cartItems, setCartItems] = useState([]);
-
-	/** Состояние Поля поиска **/
+	const [favoriteItems, setFavoriteItems] = useState(localStorage.getItem(['favoritesItems']) ? JSON.parse(localStorage.getItem(['favoritesItems'])) : []);
 	const [searchValue, setSearchValue] = useState('');
+	const [isOpenedCart, setIsOpenedCart] = useState(false);
 
 	/** Отправка запроса на получение Товаров с сервера **/
 	useEffect(() => {
@@ -52,6 +46,19 @@ function App() {
 	}
 
 
+	/** Функция Добавление/Удаления товаров в Избранные **/
+	const onFavorite = (cardCode) => {
+		if (favoriteItems.some(item => item === cardCode)) {
+			const updated = favoriteItems.filter(item => item !== cardCode);
+			setFavoriteItems(updated);
+			localStorage.setItem('favoritesItems', JSON.stringify(updated));
+		} else {
+			const updated = [...favoriteItems, cardCode];
+			setFavoriteItems(updated)
+			localStorage.setItem('favoritesItems', JSON.stringify(updated));
+		}
+	}
+
   return (
 		<>
 			<div className="wrapper">
@@ -75,6 +82,8 @@ function App() {
 										imgAlt={item.imgAlt}
 										title={item.title}
 										price={`${item.price} руб.`}
+										isFavorite={favoriteItems.some(el => el === item.code)}
+										onFavorite={(cardCode) => onFavorite(cardCode)}
 										isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
 										onAddToCart={(card) => onAddToCart(card)}
 									/>

@@ -6,7 +6,8 @@ export const Card = ({
 	imgAlt,
 	title,
 	price,
-	isFavorite = false,
+	isFavorite,
+	onFavorite,
 	isAddedToCart,
 	onAddToCart}) => {
 	return (
@@ -15,7 +16,7 @@ export const Card = ({
 				<button
 					className={isFavorite ? styles.card__btnFavorite : `${styles.card__btnFavorite} ${styles.card__btnFavoriteActive}`}
 					style={isFavorite ? {backgroundColor: '#FEF0F0'} : null}
-					// onClick={handleCardFavorite}
+					onClick={() => onFavorite(code)}
 				>
 					<img src={isFavorite ? "img/icons/heart.svg" : "img/icons/heart-outline.png"} width={16} height={15} alt=""/>
 				</button>
