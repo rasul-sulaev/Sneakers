@@ -10,7 +10,6 @@ import axios from "axios";
 
 function App() {
 	const [isOpenedCart, setIsOpenedCart] = useState(false);
-
 	const [items, setItems] = useState([]);
 	const [cartItems, setCartItems] = useState([]);
 	const [favoriteItems, setFavoriteItems] = useState(localStorage.getItem(['favoritesItems']) ? JSON.parse(localStorage.getItem(['favoritesItems'])) : []);
@@ -20,25 +19,30 @@ function App() {
 	/** Отправка запроса на получение Товаров с сервера **/
 	useEffect(() => {
 		axios.get(`${process.env.REACT_APP_API_URL}/products`)
-				.then(res => setItems(res.data));
+			.then(res => setItems(res.data))
+			.catch(err => alert(err.message))
 	}, [])
 
 
 	/** Отправка запроса на получение Товаров в Коризне с сервера **/
 	useEffect(() => {
 		axios.get(`${process.env.REACT_APP_API_URL}/cart`)
-				.then(res => setCartItems(res.data));
+			.then(res => setCartItems(res.data))
+			.catch(err => alert(err.message))
 	}, [])
+
 
 	/** Функция Добавления/Удаления товара в Корзину **/
 	const onAddToCart = (card) => {
 		if (cartItems.some(cartItem => cartItem.code === card.code)) {
 			const cardCode = cartItems.find(cartItem => cartItem.code === card.code);
 			axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardCode.id}`)
-					.then(res => setCartItems(cartItems.filter(cartItem => cartItem.code !== res.data.code)))
+				.then(res => setCartItems(cartItems.filter(cartItem => cartItem.code !== res.data.code)))
+				.catch(err => alert(err.message))
 		} else {
 			axios.post(`${process.env.REACT_APP_API_URL}/cart`, card)
-					.then(res => setCartItems(prevState => [...prevState, res.data]))
+				.then(res => setCartItems(prevState => [...prevState, res.data]))
+				.catch(err => alert(err.message))
 		}
 	}
 
@@ -46,7 +50,7 @@ function App() {
 	/** Функция Удаления товара товара из Drawer Корзины **/
 	const onRemoveItemToCart = (id) => {
 		axios.delete(`${process.env.REACT_APP_API_URL}/cart/${id}`)
-		setCartItems(prev => prev.filter(item => item.id !== id));
+			.then(res => setCartItems(prev => prev.filter(item => item.id !== res.data.id)))
 	}
 
 

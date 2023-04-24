@@ -1,17 +1,18 @@
 import { ReactComponent as IconUser } from "../assets/img/icons/user.svg";
 import { ReactComponent as IconFavorite } from "../assets/img/icons/favorite.svg";
 import { ReactComponent as IconBasket } from "../assets/img/icons/basket.svg";
+import {Link} from "react-router-dom";
 
 export const Header = ({onClickBasket}) => {
 	return (
 		<header className="header">
-			<a className="header__logo" href="/">
+			<Link className="header__logo" to="/">
 				<img className="header__logo-img" src="/img/logo.png" width={40} height={40} alt="Лого"/>
 				<div>
 					<p className="header__logo-title">REACT SNEAKERS</p>
 					<span className="header__logo-description">Магазин лучших кроссовок</span>
 				</div>
-			</a>
+			</Link>
 			<div className="header__links">
 				<button
 					className="header__link"
@@ -20,12 +21,12 @@ export const Header = ({onClickBasket}) => {
 					<IconBasket width={20} height={20} stroke="currentColor" />
 					<span>1205 руб.</span>
 				</button>
-				<a className="header__link" href="">
+				<Link className="header__link" to="/favorites">
 					<IconFavorite width={20} height={20} fill="currentColor" />
-				</a>
-				<a className="header__link" href="">
+				</Link>
+				<Link className="header__link" to="/profile">
 					<IconUser width={20} height={20} fill="currentColor" />
-				</a>
+				</Link>
 			</div>
 		</header>
 	)
