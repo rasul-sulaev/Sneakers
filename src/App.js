@@ -78,6 +78,7 @@ function App() {
 						onFavorite={onFavorite}
 						onAddToCart={onAddToCart}
 					/>} />
+					<Route path="/*" element={<h1>404 NOT FOUND</h1>} />
 					<Route path="favorites" element={<Favorites
 						items={items}
 						cartItems={cartItems}

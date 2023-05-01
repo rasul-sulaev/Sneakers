@@ -24,11 +24,7 @@ export const Home = ({
 						return (
 							<Card
 								key={item.id}
-								id={item.id}
-								code={item.code}
-								imgUrl={item.imgUrl}
-								imgAlt={item.imgAlt}
-								title={item.title}
+								{...item}
 								price={`${item.price} руб.`}
 								isFavorite={favoriteItems.some(el => el === item.code)}
 								onFavorite={(cardCode) => onFavorite(cardCode)}

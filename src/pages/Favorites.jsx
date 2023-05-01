@@ -25,13 +25,9 @@ export const Favorites = ({
 						return (
 							<Card
 								key={item.id}
-								id={item.id}
-								code={item.code}
-								imgUrl={item.imgUrl}
-								imgAlt={item.imgAlt}
-								title={item.title}
+								{...item}
 								price={`${item.price} руб.`}
-								isFavorite={favoriteItems.some(el => el === item.code)}
+								isFavorite={true}
 								onFavorite={(cardCode) => onFavorite(cardCode)}
 								isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
 								onAddToCart={(card) => onAddToCart(card)}

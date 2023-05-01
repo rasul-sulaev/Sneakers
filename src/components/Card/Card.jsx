@@ -18,7 +18,7 @@ export const Card = ({
 					style={isFavorite ? {backgroundColor: '#FEF0F0'} : null}
 					onClick={() => onFavorite(code)}
 				>
-					<img src={isFavorite ? "img/icons/heart.svg" : "img/icons/heart-outline.png"} width={16} height={15} alt=""/>
+					<img src={isFavorite ? "/img/icons/heart.svg" : "/img/icons/heart-outline.png"} width={16} height={15} alt=""/>
 				</button>
 				<img className={styles.card__img} src={`/img/products/${imgUrl}`} width={133} height={112} alt={imgAlt}/>
 			</div>
