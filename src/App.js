@@ -78,7 +78,13 @@ function App() {
 						onFavorite={onFavorite}
 						onAddToCart={onAddToCart}
 					/>} />
-					<Route path="favorites" element={<Favorites />} />
+					<Route path="favorites" element={<Favorites
+						items={items}
+						cartItems={cartItems}
+						favoriteItems={favoriteItems}
+						onFavorite={onFavorite}
+						onAddToCart={onAddToCart}
+					/>} />
 				</Route>
 			</Routes>
 
