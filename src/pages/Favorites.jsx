@@ -1,12 +1,14 @@
 import {Card} from "../components/Card/Card";
 import {useState} from "react";
+import {CardSkeleton} from "../components/Card/CardSkeleton";
 
 export const Favorites = ({
 		items,
 		cartItems,
 		favoriteItems,
 		onFavorite,
-		onAddToCart
+		onAddToCart,
+		isLoading
 	}) => {
 	const [searchValue, setSearchValue] = useState('');
 
@@ -19,22 +21,26 @@ export const Favorites = ({
 				</form>
 			</div>
 			<div className="cards__list">
-				{items.filter(item => item.title?.toLowerCase().includes(searchValue.toLowerCase()))
-					.filter(item => favoriteItems.some(el => el === item.id))
-					.map((item) => {
-						return (
-							<Card
-								key={item.id}
-								{...item}
-								price={`${item.price} руб.`}
-								isFavorite={true}
-								onFavorite={(cardIdProduct) => onFavorite(cardIdProduct)}
-								isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
-								onAddToCart={(card) => onAddToCart(card)}
-							/>
-						)
-					}
-				)}
+				{isLoading ? (
+					[...Array(8)].map(() => <CardSkeleton />)
+				) : (
+					items.filter(item => item.title?.toLowerCase().includes(searchValue.toLowerCase()))
+						.filter(item => favoriteItems.some(el => el === item.id))
+						.map((item) => {
+							return (
+								<Card
+									key={item.id}
+									{...item}
+									price={`${item.price} руб.`}
+									isFavorite
+									onFavorite={(cardIdProduct) => onFavorite(cardIdProduct)}
+									isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
+									onAddToCart={(card) => onAddToCart(card)}
+								/>
+							)
+						})
+					)
+				}
 			</div>
 		</section>
 	)

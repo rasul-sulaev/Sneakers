@@ -7,38 +7,34 @@ import {useEffect, useState} from "react";
 import {Wrapper} from "./components/Wrapper";
 import axios from "axios";
 
-import data from './data/orders.json';
-import {logDOM} from "@testing-library/react";
-
-
 function App() {
 	const [isOpenedCart, setIsOpenedCart] = useState(false);
 	const [items, setItems] = useState([]);
 	const [cartItems, setCartItems] = useState([]);
 	const [favoriteItems, setFavoriteItems] = useState(localStorage.getItem(['favoritesItems']) ? JSON.parse(localStorage.getItem(['favoritesItems'])) : []);
+	const [isLoading, setIsLoading] = useState(true);
 
 
-
-	/** Отправка запроса на получение Товаров с сервера **/
+	/** Загрузка данных с серера **/
 	useEffect(() => {
-		axios.get(`${process.env.REACT_APP_API_URL}/products`)
-			.then(res => setItems(res.data))
-			.catch(err => alert(err.message))
+		setIsLoading(true);
+		(async () => {
+			try {
+				const responseItems = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
+				const responseCartItems = await axios.get(`${process.env.REACT_APP_API_URL}/cart`)
+
+				setItems(responseItems.data);
+				setCartItems(responseCartItems.data);
+				setIsLoading(false)
+			} catch (error) {
+				alert(`Ошибка при загрузке данных: ${error.name}`)
+				console.log(error)
+			}
+		})()
 	}, [])
-
-
-	/** Отправка запроса на получение Товаров в Коризне с сервера **/
-	useEffect(() => {
-		axios.get(`${process.env.REACT_APP_API_URL}/cart`)
-			.then(res => setCartItems(res.data))
-			.catch(err => alert(err.message))
-	}, [])
-
 
 	/** Функция Добавления/Удаления товара в Корзину **/
 	const onAddToCart = (card) => {
-		console.log(cartItems)
-
 		if (cartItems.some(cartItem => cartItem.id_product === card.id_product)) {
 			const cardSelect = cartItems.find(cartItem => cartItem.id_product === card.id_product);
 			axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardSelect.id}`)
@@ -82,6 +78,7 @@ function App() {
 						favoriteItems={favoriteItems}
 						onFavorite={onFavorite}
 						onAddToCart={onAddToCart}
+						isLoading={isLoading}
 					/>} />
 					<Route path="/*" element={<h1>404 NOT FOUND</h1>} />
 					<Route path="favorites" element={<Favorites
@@ -90,14 +87,15 @@ function App() {
 						favoriteItems={favoriteItems}
 						onFavorite={onFavorite}
 						onAddToCart={onAddToCart}
+						isLoading={isLoading}
 					/>} />
 				</Route>
 			</Routes>
 
 			{isOpenedCart && <Drawer
-					cartItems={cartItems}
-					onClose={() => setIsOpenedCart(false)}
-					onRemoveItem={(id) => onRemoveItemToCart(id)}
+				cartItems={cartItems}
+				onClose={() => setIsOpenedCart(false)}
+				onRemoveItem={(id) => onRemoveItemToCart(id)}
 			/>}
 		</>
 	)

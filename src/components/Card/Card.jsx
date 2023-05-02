@@ -9,7 +9,8 @@ export const Card = ({
 	isFavorite,
 	onFavorite,
 	isAddedToCart,
-	onAddToCart}) => {
+	onAddToCart
+}) => {
 	return (
 		<div className={styles.card}>
 			<div className={styles.card__imgBlock}>
