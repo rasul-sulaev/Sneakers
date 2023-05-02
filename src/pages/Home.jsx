@@ -26,9 +26,9 @@ export const Home = ({
 								key={item.id}
 								{...item}
 								price={`${item.price} руб.`}
-								isFavorite={favoriteItems.some(el => el === item.code)}
-								onFavorite={(cardCode) => onFavorite(cardCode)}
-								isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
+								isFavorite={favoriteItems.some(el => el === item.id)}
+								onFavorite={(cardIdProduct) => onFavorite(cardIdProduct)}
+								isAddedToCart={cartItems.some(cartItem => cartItem.id_product === item.id)}
 								onAddToCart={(card) => onAddToCart(card)}
 							/>
 						)

@@ -28,7 +28,7 @@ export const Favorites = ({
 								{...item}
 								price={`${item.price} руб.`}
 								isFavorite={true}
-								onFavorite={(cardCode) => onFavorite(cardCode)}
+								onFavorite={(cardIdProduct) => onFavorite(cardIdProduct)}
 								isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
 								onAddToCart={(card) => onAddToCart(card)}
 							/>

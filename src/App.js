@@ -7,6 +7,9 @@ import {useEffect, useState} from "react";
 import {Wrapper} from "./components/Wrapper";
 import axios from "axios";
 
+import data from './data/orders.json';
+import {logDOM} from "@testing-library/react";
+
 
 function App() {
 	const [isOpenedCart, setIsOpenedCart] = useState(false);
@@ -34,10 +37,12 @@ function App() {
 
 	/** Функция Добавления/Удаления товара в Корзину **/
 	const onAddToCart = (card) => {
-		if (cartItems.some(cartItem => cartItem.code === card.code)) {
-			const cardCode = cartItems.find(cartItem => cartItem.code === card.code);
-			axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardCode.id}`)
-				.then(res => setCartItems(cartItems.filter(cartItem => cartItem.code !== res.data.code)))
+		console.log(cartItems)
+
+		if (cartItems.some(cartItem => cartItem.id_product === card.id_product)) {
+			const cardSelect = cartItems.find(cartItem => cartItem.id_product === card.id_product);
+			axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardSelect.id}`)
+				.then(res => setCartItems(prevState => prevState.filter(cartItem => cartItem.id_product !== res.data.id_product)))
 				.catch(err => alert(err.message))
 		} else {
 			axios.post(`${process.env.REACT_APP_API_URL}/cart`, card)
@@ -55,13 +60,13 @@ function App() {
 
 
 	/** Функция Добавление/Удаления товаров в Избранные **/
-	const onFavorite = (cardCode) => {
-		if (favoriteItems.some(item => item === cardCode)) {
-			const updated = favoriteItems.filter(item => item !== cardCode);
+	const onFavorite = (cardIdProduct) => {
+		if (favoriteItems.some(item => item === cardIdProduct)) {
+			const updated = favoriteItems.filter(item => item !== cardIdProduct);
 			setFavoriteItems(updated);
 			localStorage.setItem('favoritesItems', JSON.stringify(updated));
 		} else {
-			const updated = [...favoriteItems, cardCode];
+			const updated = [...favoriteItems, cardIdProduct];
 			setFavoriteItems(updated)
 			localStorage.setItem('favoritesItems', JSON.stringify(updated));
 		}

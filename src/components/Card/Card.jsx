@@ -1,7 +1,7 @@
 import styles from "./Card.module.sass";
 
 export const Card = ({
-	code,
+	id,
 	imgUrl,
 	imgAlt,
 	title,
@@ -16,7 +16,7 @@ export const Card = ({
 				<button
 					className={isFavorite ? styles.card__btnFavorite : `${styles.card__btnFavorite} ${styles.card__btnFavoriteActive}`}
 					style={isFavorite ? {backgroundColor: '#FEF0F0'} : null}
-					onClick={() => onFavorite(code)}
+					onClick={() => onFavorite(id)}
 				>
 					<img src={isFavorite ? "/img/icons/heart.svg" : "/img/icons/heart-outline.png"} width={16} height={15} alt=""/>
 				</button>
@@ -30,7 +30,7 @@ export const Card = ({
 				</div>
 				<button
 					className={isAddedToCart ? `${styles.card__btnAdd} ${styles.card__btnAddActive}` : `${styles.card__btnAdd}`}
-					onClick={() => onAddToCart({code, imgUrl, imgAlt, title, price})}
+					onClick={() => onAddToCart({id_product: id, imgUrl, imgAlt, title, price})}
 				/>
 			</div>
 		</div>

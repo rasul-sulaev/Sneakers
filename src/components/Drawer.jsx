@@ -16,7 +16,7 @@ export const Drawer = ({onClose, cartItems, onRemoveItem}) => {
 						<div className="carts__list drawer__content">
 							{cartItems.map(item => {
 								return (
-									<div className="cart__item">
+									<div key={item.id} className="cart__item">
 										<img className="cart__item-title" src={`/img/products/${item.imgUrl}`} width={70} height={70} alt={item.imgAlt}/>
 										<div className="cart__item-info">
 											<p className="cart__item-title">{item.title}</p>
