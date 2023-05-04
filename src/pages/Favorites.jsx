@@ -1,16 +1,16 @@
 import {Card} from "../components/Card/Card";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {CardSkeleton} from "../components/Card/CardSkeleton";
+import {AppContext} from "../context";
 
-export const Favorites = ({
-		items,
-		cartItems,
-		favoriteItems,
-		onFavorite,
-		onAddToCart,
-		isLoading
-	}) => {
+export const Favorites = () => {
 	const [searchValue, setSearchValue] = useState('');
+
+	const {
+		items,
+		favoriteItems,
+		isLoading
+	} = useContext(AppContext);
 
 	return (
 		<section className="section">
@@ -32,10 +32,6 @@ export const Favorites = ({
 									key={item.id}
 									{...item}
 									price={`${item.price} руб.`}
-									isFavorite
-									onFavorite={(cardIdProduct) => onFavorite(cardIdProduct)}
-									isAddedToCart={cartItems.some(cartItem => cartItem.code === item.code)}
-									onAddToCart={(card) => onAddToCart(card)}
 								/>
 							)
 						})

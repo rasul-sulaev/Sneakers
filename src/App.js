@@ -6,6 +6,7 @@ import {Drawer} from "./components/Drawer";
 import {useEffect, useState} from "react";
 import {Wrapper} from "./components/Wrapper";
 import axios from "axios";
+import {AppContext} from "./context";
 
 function App() {
 	const [isOpenedCart, setIsOpenedCart] = useState(false);
@@ -47,14 +48,6 @@ function App() {
 		}
 	}
 
-
-	/** Функция Удаления товара товара из Drawer Корзины **/
-	const onRemoveItemToCart = (id) => {
-		axios.delete(`${process.env.REACT_APP_API_URL}/cart/${id}`)
-			.then(res => setCartItems(prev => prev.filter(item => item.id !== res.data.id)))
-	}
-
-
 	/** Функция Добавление/Удаления товаров в Избранные **/
 	const onFavorite = (cardIdProduct) => {
 		if (favoriteItems.some(item => item === cardIdProduct)) {
@@ -69,35 +62,26 @@ function App() {
 	}
 
   return (
-		<>
+		<AppContext.Provider value={{
+			items,
+			cartItems,
+			favoriteItems,
+			onFavorite,
+			onAddToCart,
+			isLoading
+		}}>
 			<Routes>
 				<Route path="/" element={<Wrapper setIsOpenedCart={setIsOpenedCart} />} >
-					<Route index path="/" element={<Home
-						items={items}
-						cartItems={cartItems}
-						favoriteItems={favoriteItems}
-						onFavorite={onFavorite}
-						onAddToCart={onAddToCart}
-						isLoading={isLoading}
-					/>} />
+					<Route index path="/" element={<Home />} />
 					<Route path="/*" element={<h1>404 NOT FOUND</h1>} />
-					<Route path="favorites" element={<Favorites
-						items={items}
-						cartItems={cartItems}
-						favoriteItems={favoriteItems}
-						onFavorite={onFavorite}
-						onAddToCart={onAddToCart}
-						isLoading={isLoading}
-					/>} />
+					<Route path="favorites" element={<Favorites />} />
 				</Route>
 			</Routes>
 
 			{isOpenedCart && <Drawer
-				cartItems={cartItems}
 				onClose={() => setIsOpenedCart(false)}
-				onRemoveItem={(id) => onRemoveItemToCart(id)}
 			/>}
-		</>
+		</AppContext.Provider>
 	)
 }
 

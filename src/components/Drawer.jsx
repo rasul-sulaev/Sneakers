@@ -1,7 +1,14 @@
 import {ReactComponent as IconTimes} from "../assets/img/icons/times.svg";
 import {ReactComponent as IconArrowRight} from "../assets/img/icons/arrow-right.svg";
+import {useContext} from "react";
+import {AppContext} from "../context";
 
-export const Drawer = ({onClose, cartItems, onRemoveItem}) => {
+export const Drawer = ({onClose}) => {
+	const {
+		cartItems,
+		onAddToCart: onRemoveItem
+	} = useContext(AppContext);
+
 	return (
 		<div className="overlay">
 			<div className="cart drawer">
@@ -22,7 +29,7 @@ export const Drawer = ({onClose, cartItems, onRemoveItem}) => {
 											<p className="cart__item-title">{item.title}</p>
 											<span className="cart__item-price">{item.price}</span>
 										</div>
-										<button className="cart__item-btn-delete" onClick={() => onRemoveItem(item.id)}>
+										<button className="cart__item-btn-delete" onClick={() => onRemoveItem(item)}>
 											<IconTimes fill="currentColor" />
 										</button>
 									</div>

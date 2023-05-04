@@ -1,4 +1,6 @@
 import styles from "./Card.module.sass";
+import {AppContext} from "../../context";
+import {useContext} from "react";
 
 export const Card = ({
 	id,
@@ -6,11 +8,19 @@ export const Card = ({
 	imgAlt,
 	title,
 	price,
-	isFavorite,
-	onFavorite,
-	isAddedToCart,
-	onAddToCart
 }) => {
+
+	const {
+		cartItems,
+		favoriteItems,
+		onAddToCart,
+		onFavorite
+	} = useContext(AppContext);
+
+	const isFavorite = favoriteItems.some(el => el === id)
+	const isAddedToCart = cartItems.some(cartItem => cartItem.id_product === id)
+
+
 	return (
 		<div className={styles.card}>
 			<div className={styles.card__imgBlock}>
