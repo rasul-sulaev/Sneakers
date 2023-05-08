@@ -1,12 +1,14 @@
-import {ReactComponent as IconTimes} from "../assets/img/icons/times.svg";
-import {ReactComponent as IconArrowRight} from "../assets/img/icons/arrow-right.svg";
+import {ReactComponent as IconTimes} from "../../assets/img/icons/times.svg";
+import {ReactComponent as IconArrowRight} from "../../assets/img/icons/arrow-right.svg";
 import {useContext} from "react";
-import {AppContext} from "../context";
+import {AppContext} from "../../context";
+import {DrawerInfo} from "./DrawerInfo";
 
-export const Drawer = ({onClose}) => {
+export const Drawer = () => {
 	const {
 		cartItems,
-		onAddToCart: onRemoveItem
+		onAddToCart: onRemoveItem,
+		setIsOpenedCart
 	} = useContext(AppContext);
 
 	return (
@@ -14,7 +16,7 @@ export const Drawer = ({onClose}) => {
 			<div className="cart drawer">
 				<div className="drawer__header section__header">
 					<h3 className="section__header-title">Корзина</h3>
-					<button className="drawer__close" title="Закрыть" onClick={onClose}>
+					<button className="drawer__close" title="Закрыть" onClick={() => setIsOpenedCart(false)}>
 						<IconTimes fill="currentColor" />
 					</button>
 				</div>
@@ -56,15 +58,17 @@ export const Drawer = ({onClose}) => {
 						</div>
 					</>
 				) : (
-					<div className="drawer__content drawer__content_empty">
-						<img className="drawer__content-img" width={120} height={120} src="/img/cart_empty.png" alt="Cart empty"/>
-						<p className="drawer__content-title">Корзина пустая</p>
-						<p className="drawer__content-description">Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
-						<button className="drawer__content-btn btn btn_arrow-left" onClick={onClose}>
-							<IconArrowRight stroke="currentColor" />
-							Вернуться назад
-						</button>
-					</div>
+					<DrawerInfo
+						img={{
+							url: '/img/cart_empty.png',
+							alt: 'Cart empty',
+							width: 120,
+							height: 120
+						}}
+						titleGreen={false}
+						title="Корзина пустая"
+						description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
+					/>
 				)}
 			</div>
 		</div>

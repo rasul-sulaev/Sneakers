@@ -2,7 +2,7 @@ import './style.sass'
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
-import {Drawer} from "./components/Drawer";
+import {Drawer} from "./components/Drawer/Drawer";
 import {useEffect, useState} from "react";
 import {Wrapper} from "./components/Wrapper";
 import axios from "axios";
@@ -68,7 +68,8 @@ function App() {
 			favoriteItems,
 			onFavorite,
 			onAddToCart,
-			isLoading
+			isLoading,
+			setIsOpenedCart
 		}}>
 			<Routes>
 				<Route path="/" element={<Wrapper setIsOpenedCart={setIsOpenedCart} />} >
@@ -77,10 +78,7 @@ function App() {
 					<Route path="favorites" element={<Favorites />} />
 				</Route>
 			</Routes>
-
-			{isOpenedCart && <Drawer
-				onClose={() => setIsOpenedCart(false)}
-			/>}
+			{isOpenedCart && <Drawer />}
 		</AppContext.Provider>
 	)
 }
