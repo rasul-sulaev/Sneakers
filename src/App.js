@@ -8,19 +8,22 @@ import {Wrapper} from "./components/Wrapper";
 import axios from "axios";
 import {AppContext} from "./context";
 
+const ordersData = [];
+
 function App() {
 	const [isOpenedCart, setIsOpenedCart] = useState(false);
 	const [items, setItems] = useState([]);
 	const [cartItems, setCartItems] = useState([]);
 	const [favoriteItems, setFavoriteItems] = useState(localStorage.getItem(['favoritesItems']) ? JSON.parse(localStorage.getItem(['favoritesItems'])) : []);
+	const [orders, setOrders] = useState(ordersData);
 	const [isLoading, setIsLoading] = useState(true);
 
 
 	/** Загрузка данных с серера **/
 	useEffect(() => {
-		setIsLoading(true);
 		(async () => {
 			try {
+				setIsLoading(true);
 				const responseItems = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
 				const responseCartItems = await axios.get(`${process.env.REACT_APP_API_URL}/cart`)
 
@@ -35,10 +38,10 @@ function App() {
 	}, [])
 
 	/** Функция Добавления/Удаления товара в Корзину **/
-	const onAddToCart = (card) => {
+	const onAddToCart = async (card) => {
 		if (cartItems.some(cartItem => cartItem.id_product === card.id_product)) {
 			const cardSelect = cartItems.find(cartItem => cartItem.id_product === card.id_product);
-			axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardSelect.id}`)
+			await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardSelect.id}`)
 				.then(res => setCartItems(prevState => prevState.filter(cartItem => cartItem.id_product !== res.data.id_product)))
 				.catch(err => alert(err.message))
 		} else {
@@ -65,9 +68,11 @@ function App() {
 		<AppContext.Provider value={{
 			items,
 			cartItems,
+			setCartItems,
 			favoriteItems,
 			onFavorite,
 			onAddToCart,
+			setOrders,
 			isLoading,
 			setIsOpenedCart
 		}}>

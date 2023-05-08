@@ -60,6 +60,14 @@ svg
   *
     transition: none
 
+@keyframes disabled_btn
+  0%
+    background-color: lighten($green, 7%)
+  50%
+    background-color: lighten($green, 15%)
+  100%
+    background-color: lighten($green, 7%)
+
 .btn
   padding: 18px
   color: #ffffff
@@ -82,6 +90,9 @@ svg
     background-color: lighten($green, 3%)
   &:active
     background-color: darken($green, 3%)
+  &:disabled
+    pointer-events: none
+    animation: disabled_btn 0.75s infinite ease-out
   &_arrow-left,
   &_arrow-right
     position: relative

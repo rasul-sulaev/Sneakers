@@ -1,15 +1,46 @@
 import {ReactComponent as IconTimes} from "../../assets/img/icons/times.svg";
 import {ReactComponent as IconArrowRight} from "../../assets/img/icons/arrow-right.svg";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {AppContext} from "../../context";
 import {DrawerInfo} from "./DrawerInfo";
+import axios from "axios";
+
+let orderId = 0;
 
 export const Drawer = () => {
 	const {
 		cartItems,
+		setCartItems,
+		setOrders,
 		onAddToCart: onRemoveItem,
 		setIsOpenedCart
 	} = useContext(AppContext);
+
+	const [isOrderComplete, setIsOrderComplete] = useState(false);
+	const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
+
+	const onCheckout = async () => {
+		orderId++;
+		setOrders(prev => [...prev, {
+			id: orderId,
+			items: cartItems
+		}]);
+	  setIsOrderComplete(true);
+
+		for (let card of cartItems) {
+			setIsLoadingCheckout(true);
+			try {
+				await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${card.id}`)
+					.catch(err => alert(err.message))
+
+				setCartItems([]);
+			} catch (error) {
+				alert(`Не удалось создать заказ :(`)
+				console.log(error)
+			}
+			setIsLoadingCheckout(false);
+		}
+	}
 
 	return (
 		<div className="overlay">
@@ -51,24 +82,42 @@ export const Drawer = () => {
 									<span className="details-list__item-value">1074 руб.</span>
 								</li>
 							</ul>
-							<button className="btn btn_arrow-right">
+							<button
+								className="btn btn_arrow-right"
+								onClick={onCheckout}
+								disabled={isLoadingCheckout}
+							>
 								Оформить заказ
 								<IconArrowRight stroke="currentColor" />
 							</button>
 						</div>
 					</>
 				) : (
-					<DrawerInfo
-						img={{
-							url: '/img/cart_empty.png',
-							alt: 'Cart empty',
-							width: 120,
-							height: 120
-						}}
-						titleGreen={false}
-						title="Корзина пустая"
-						description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
-					/>
+					isOrderComplete ? (
+						<DrawerInfo
+							img={{
+								url: '/img/complete-order.png',
+								alt: 'Complete order',
+								width: 83,
+								height: 120
+							}}
+							titleGreen={true}
+							title="Заказ оформлен!"
+							description={`Ваш заказ №${orderId} скоро будет передан курьерской доставке`}
+						/>
+						) : (
+							<DrawerInfo
+								img={{
+									url: '/img/cart_empty.png',
+									alt: 'Cart empty',
+									width: 120,
+									height: 120
+								}}
+								titleGreen={false}
+								title="Корзина пустая"
+								description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
+							/>
+						)
 				)}
 			</div>
 		</div>
