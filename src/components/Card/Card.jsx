@@ -37,7 +37,7 @@ export const Card = ({
 			<div className={styles.card__bottom}>
 				<div>
 					<span className={styles.card__priceText}>ЦЕНА:</span>
-					<span className={styles.card__price}>{price}</span>
+					<span className={styles.card__price}>{price} руб.</span>
 				</div>
 				<button
 					className={isAddedToCart ? `${styles.card__btnAdd} ${styles.card__btnAddActive}` : `${styles.card__btnAdd}`}

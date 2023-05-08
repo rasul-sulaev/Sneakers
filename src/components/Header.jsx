@@ -2,8 +2,14 @@ import { ReactComponent as IconUser } from "../assets/img/icons/user.svg";
 import { ReactComponent as IconFavorite } from "../assets/img/icons/favorite.svg";
 import { ReactComponent as IconBasket } from "../assets/img/icons/basket.svg";
 import {Link} from "react-router-dom";
+import {useTotalPriceBasket} from "../hooks/useTotalPriceBasket";
 
-export const Header = ({onClickBasket}) => {
+export const Header = ({
+	// totalPrice,
+	onClickBasket
+}) => {
+	const {totalPriceWithTax} = useTotalPriceBasket();
+
 	return (
 		<header className="header">
 			<Link className="header__logo" to="/">
@@ -19,7 +25,8 @@ export const Header = ({onClickBasket}) => {
 					onClick={onClickBasket}
 				>
 					<IconBasket width={20} height={20} stroke="currentColor" />
-					<span>1205 руб.</span>
+					{/*{!!totalPrice && (<span>{totalPrice} руб.</span>)}*/}
+					{totalPriceWithTax ? (<span>{totalPriceWithTax} руб.</span>) : null}
 				</button>
 				<Link className="header__link" to="/favorites">
 					<IconFavorite width={20} height={20} fill="currentColor" />

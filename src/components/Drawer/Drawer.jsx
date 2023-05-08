@@ -18,6 +18,7 @@ export const Drawer = () => {
 
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
 	const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
+	const totalPrice = cartItems.reduce((acc, obj) => obj.price + acc, 0);
 
 	const onCheckout = async () => {
 		orderId++;
@@ -72,14 +73,15 @@ export const Drawer = () => {
 						<div className="cart__total drawer__bottom">
 							<ul className="details-list">
 								<li className="details-list__item">
-									<span className="details-list__item-key">Итого: </span>
-									<span className="dashed"></span>
-									<span className="details-list__item-value">21 498 руб.</span>
-								</li>
-								<li className="details-list__item">
 									<span className="details-list__item-key">Налог 5%: </span>
 									<span className="dashed"></span>
-									<span className="details-list__item-value">1074 руб.</span>
+									{/*<span className="details-list__item-value">{totalPrice / 100 * 5} руб.</span>*/}
+									<span className="details-list__item-value">{Math.ceil(totalPrice * 0.05)} руб.</span>
+								</li>
+								<li className="details-list__item">
+									<span className="details-list__item-key">Итого: </span>
+									<span className="dashed"></span>
+									<span className="details-list__item-value">{totalPrice} руб.</span>
 								</li>
 							</ul>
 							<button

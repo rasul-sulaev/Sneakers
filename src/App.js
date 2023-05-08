@@ -64,6 +64,10 @@ function App() {
 		}
 	}
 
+
+
+	// const totalPrice = cartItems.reduce((acc, obj) => obj.price + acc, 0);
+
   return (
 		<AppContext.Provider value={{
 			items,
@@ -77,13 +81,18 @@ function App() {
 			setIsOpenedCart
 		}}>
 			<Routes>
-				<Route path="/" element={<Wrapper setIsOpenedCart={setIsOpenedCart} />} >
+				<Route path="/" element={<Wrapper
+					// totalPrice={totalPrice}
+					setIsOpenedCart={setIsOpenedCart}
+				/>} >
 					<Route index path="/" element={<Home />} />
 					<Route path="/*" element={<h1>404 NOT FOUND</h1>} />
 					<Route path="favorites" element={<Favorites />} />
 				</Route>
 			</Routes>
-			{isOpenedCart && <Drawer />}
+			{isOpenedCart && <Drawer
+				// totalPrice={totalPrice}
+			/>}
 		</AppContext.Provider>
 	)
 }

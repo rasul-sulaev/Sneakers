@@ -29,7 +29,6 @@ export const Home = () => {
 								<Card
 									key={item.id}
 									{...item}
-									price={`${item.price} руб.`}
 								/>
 							)
 						})
