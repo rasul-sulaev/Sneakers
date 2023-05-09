@@ -230,8 +230,15 @@ svg
   left: 0
   display: block
   background-color: rgba(#000000, 0.5)
-  transition: none
   z-index: 2
+  visibility: hidden
+  opacity: 0
+  &_visible
+    opacity: 1
+    visibility: visible
+    .drawer
+      transform: translateX(0)
+
 
 
 // Drawer
@@ -246,6 +253,7 @@ svg
   background-color: #ffffff
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1)
   box-sizing: border-box
+  transform: translateX(100%)
   &__header
     margin-bottom: 0
   &__close

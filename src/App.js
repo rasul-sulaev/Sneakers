@@ -77,6 +77,7 @@ function App() {
 			orders,
 			setOrders,
 			isLoading,
+			isOpenedCart,
 			setIsOpenedCart
 		}}>
 			<Routes>
@@ -87,7 +88,7 @@ function App() {
 					<Route path="orders" element={<Orders />} />
 				</Route>
 			</Routes>
-			{isOpenedCart && <Drawer />}
+			<Drawer />
 		</AppContext.Provider>
 	)
 }

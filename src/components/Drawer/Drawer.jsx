@@ -13,6 +13,7 @@ export const Drawer = () => {
 		setCartItems,
 		setOrders,
 		onAddToCart: onRemoveItem,
+		isOpenedCart,
 		setIsOpenedCart
 	} = useContext(AppContext);
 
@@ -43,7 +44,7 @@ export const Drawer = () => {
 	}
 
 	return (
-		<div className="overlay">
+		<div className={`overlay ${isOpenedCart ? 'overlay_visible' : ''}`}>
 			<div className="cart drawer">
 				<div className="drawer__header section__header">
 					<h3 className="section__header-title">Корзина</h3>
