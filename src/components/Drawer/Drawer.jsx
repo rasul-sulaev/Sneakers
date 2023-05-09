@@ -21,26 +21,25 @@ export const Drawer = () => {
 	const totalPrice = cartItems.reduce((acc, obj) => obj.price + acc, 0);
 
 	const onCheckout = async () => {
-		orderId++;
-		setOrders(prev => [...prev, {
-			id: orderId,
-			items: cartItems
-		}]);
-	  setIsOrderComplete(true);
-
-		for (let card of cartItems) {
-			setIsLoadingCheckout(true);
-			try {
+		setIsLoadingCheckout(true);
+		try {
+			for (let card of cartItems) {
 				await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${card.id}`)
+					.then(res => setIsOrderComplete(true))
 					.catch(err => alert(err.message))
-
-				setCartItems([]);
-			} catch (error) {
-				alert(`Не удалось создать заказ :(`)
-				console.log(error)
 			}
-			setIsLoadingCheckout(false);
+
+			orderId++;
+			setOrders(prev => [...prev, {
+				id: orderId,
+				items: cartItems
+			}]);
+			setCartItems([]);
+		} catch (error) {
+			alert(`Не удалось создать заказ :(`)
+			console.log(error)
 		}
+		setIsLoadingCheckout(false);
 	}
 
 	return (

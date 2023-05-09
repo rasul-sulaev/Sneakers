@@ -33,6 +33,9 @@ $red: #FF8585
   height: 6px
   border-radius: 10px
 
+html
+  scroll-behavior: smooth
+
 
 body
   margin: 0
@@ -208,6 +211,14 @@ svg
   display: grid
   grid-template-columns: repeat(4, 1fr)
   grid-gap: 40px
+
+
+// Order
+.order
+  &:not(:first-child)
+    margin-top: 45px
+  &__title
+    margin: 0 0 24px
 
 
 // Overlay

@@ -31,7 +31,7 @@ export const Favorites = () => {
 								<Card
 									key={item.id}
 									{...item}
-									price={`${item.price} руб.`}
+									price={item.price}
 								/>
 							)
 						})

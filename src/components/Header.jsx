@@ -31,7 +31,7 @@ export const Header = ({
 				<Link className="header__link" to="/favorites">
 					<IconFavorite width={20} height={20} fill="currentColor" />
 				</Link>
-				<Link className="header__link" to="/profile">
+				<Link className="header__link" to="/orders">
 					<IconUser width={20} height={20} fill="currentColor" />
 				</Link>
 			</div>

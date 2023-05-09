@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {Wrapper} from "./components/Wrapper";
 import axios from "axios";
 import {AppContext} from "./context";
+import {Orders} from "./pages/Orders";
 
 const ordersData = [];
 
@@ -65,9 +66,6 @@ function App() {
 	}
 
 
-
-	// const totalPrice = cartItems.reduce((acc, obj) => obj.price + acc, 0);
-
   return (
 		<AppContext.Provider value={{
 			items,
@@ -76,23 +74,20 @@ function App() {
 			favoriteItems,
 			onFavorite,
 			onAddToCart,
+			orders,
 			setOrders,
 			isLoading,
 			setIsOpenedCart
 		}}>
 			<Routes>
-				<Route path="/" element={<Wrapper
-					// totalPrice={totalPrice}
-					setIsOpenedCart={setIsOpenedCart}
-				/>} >
+				<Route path="/" element={<Wrapper	setIsOpenedCart={setIsOpenedCart} />} >
 					<Route index path="/" element={<Home />} />
 					<Route path="/*" element={<h1>404 NOT FOUND</h1>} />
 					<Route path="favorites" element={<Favorites />} />
+					<Route path="orders" element={<Orders />} />
 				</Route>
 			</Routes>
-			{isOpenedCart && <Drawer
-				// totalPrice={totalPrice}
-			/>}
+			{isOpenedCart && <Drawer />}
 		</AppContext.Provider>
 	)
 }
