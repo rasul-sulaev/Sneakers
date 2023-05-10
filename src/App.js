@@ -49,7 +49,7 @@ function App() {
 					.then(res => setCartItems(prevState => prevState.filter(cartItem => cartItem.id_product !== res.data.id_product)))
 					.catch(err => alert(err.message))
 			} else {
-				axios.post(`${process.env.REACT_APP_API_URL}/cart`, card)
+				await axios.post(`${process.env.REACT_APP_API_URL}/cart`, card)
 					.then(res => setCartItems(prevState => [...prevState, res.data]))
 					.catch(err => alert(err.message))
 			}

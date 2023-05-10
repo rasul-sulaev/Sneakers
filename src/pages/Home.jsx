@@ -21,7 +21,7 @@ export const Home = () => {
 			</div>
 			<div className="cards__list">
 				{isLoading ? (
-					[...Array(12)].map(() => <CardSkeleton />)
+					[...Array(12)].map((_, index) => <CardSkeleton key={index} />)
 				) : (
 					items.filter(item => item.title?.toLowerCase().includes(searchValue.toLowerCase()))
 						.map(item => {
