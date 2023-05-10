@@ -37,7 +37,7 @@ export const Orders = () => {
 								<div className="order" key={order.id}>
 									<h3 className="order__title">Заказ №{order.id}</h3>
 									<div className="cards__list">
-										{[...Array(4)].map(() => <CardSkeleton />)}
+										{[...Array(4)].map((_, index) => <CardSkeleton key={index} />)}
 									</div>
 								</div>
 							)
