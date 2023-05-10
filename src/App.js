@@ -25,30 +25,37 @@ function App() {
 		(async () => {
 			try {
 				setIsLoading(true);
-				const responseItems = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
-				const responseCartItems = await axios.get(`${process.env.REACT_APP_API_URL}/cart`)
+				const [responseItems, responseCartItems] = await Promise.all([
+					axios.get(`${process.env.REACT_APP_API_URL}/products`),
+					axios.get(`${process.env.REACT_APP_API_URL}/cart`)
+				]);
 
 				setItems(responseItems.data);
 				setCartItems(responseCartItems.data);
 				setIsLoading(false)
 			} catch (error) {
-				alert(`Ошибка при загрузке данных: ${error.name}`)
-				console.log(error)
+				alert(`Ошибка при загрузке данных :(`)
+				console.error(error)
 			}
 		})()
 	}, [])
 
 	/** Функция Добавления/Удаления товара в Корзину **/
 	const onAddToCart = async (card) => {
-		if (cartItems.some(cartItem => cartItem.id_product === card.id_product)) {
-			const cardSelect = cartItems.find(cartItem => cartItem.id_product === card.id_product);
-			await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardSelect.id}`)
-				.then(res => setCartItems(prevState => prevState.filter(cartItem => cartItem.id_product !== res.data.id_product)))
-				.catch(err => alert(err.message))
-		} else {
-			axios.post(`${process.env.REACT_APP_API_URL}/cart`, card)
-				.then(res => setCartItems(prevState => [...prevState, res.data]))
-				.catch(err => alert(err.message))
+		try {
+			if (cartItems.some(cartItem => cartItem.id_product === card.id_product)) {
+				const cardSelect = cartItems.find(cartItem => cartItem.id_product === card.id_product);
+				await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${cardSelect.id}`)
+					.then(res => setCartItems(prevState => prevState.filter(cartItem => cartItem.id_product !== res.data.id_product)))
+					.catch(err => alert(err.message))
+			} else {
+				axios.post(`${process.env.REACT_APP_API_URL}/cart`, card)
+					.then(res => setCartItems(prevState => [...prevState, res.data]))
+					.catch(err => alert(err.message))
+			}
+		} catch (error) {
+			alert(`Ошибка при добавление/удалении товара :(`)
+			console.error(error)
 		}
 	}
 
