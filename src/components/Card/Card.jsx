@@ -1,6 +1,7 @@
 import styles from "./Card.module.sass";
-import {AppContext} from "../../context";
 import {useContext} from "react";
+import {AppContext} from "../../context";
+import {useNumberWithSpaces} from "../../hooks/useNumberWithSpaces";
 
 export const Card = ({
 	id,
@@ -40,7 +41,7 @@ export const Card = ({
 			<div className={styles.card__bottom}>
 				<div>
 					<span className={styles.card__priceText}>ЦЕНА:</span>
-					<span className={styles.card__price}>{price} руб.</span>
+					<span className={styles.card__price}>{useNumberWithSpaces(price)}</span>
 				</div>
 				{hideButtonAddToCard || (
 					<button

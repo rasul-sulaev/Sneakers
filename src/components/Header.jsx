@@ -3,11 +3,13 @@ import { ReactComponent as IconFavorite } from "../assets/img/icons/favorite.svg
 import { ReactComponent as IconBasket } from "../assets/img/icons/basket.svg";
 import {NavLink} from "react-router-dom";
 import {useTotalPriceBasket} from "../hooks/useTotalPriceBasket";
+import {useNumberWithSpaces} from "../hooks/useNumberWithSpaces";
 
 export const Header = ({
 	onClickBasket
 }) => {
 	const {totalPriceWithTax} = useTotalPriceBasket();
+	const totalPriceWithTaxWithSpaces = useNumberWithSpaces(totalPriceWithTax);
 
 	return (
 		<header className="header">
@@ -24,7 +26,7 @@ export const Header = ({
 					onClick={onClickBasket}
 				>
 					<IconBasket width={20} height={20} stroke="currentColor" />
-					{totalPriceWithTax ? (<span>{totalPriceWithTax} руб.</span>) : null}
+					{!!totalPriceWithTax && (<span>{totalPriceWithTaxWithSpaces}</span>)}
 				</button>
 				<NavLink className="header__link" to="/favorites">
 					<IconFavorite width={20} height={20} fill="currentColor" />

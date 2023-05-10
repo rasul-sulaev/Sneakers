@@ -4,6 +4,8 @@ import {useContext, useState} from "react";
 import {AppContext} from "../../context";
 import {DrawerInfo} from "./DrawerInfo";
 import axios from "axios";
+import {useTotalPriceBasket} from "../../hooks/useTotalPriceBasket";
+import {useNumberWithSpaces} from "../../hooks/useNumberWithSpaces";
 
 let orderId = 0;
 
@@ -19,7 +21,8 @@ export const Drawer = () => {
 
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
 	const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
-	const totalPrice = cartItems.reduce((acc, obj) => obj.price + acc, 0);
+	const {totalPriceWithTax, priceTax} = useTotalPriceBasket();
+	const [totalPriceWithTaxWithSpaces, priceTaxWithSpaces] = [useNumberWithSpaces(totalPriceWithTax), useNumberWithSpaces(priceTax)];
 
 	const onCheckout = async () => {
 		setIsLoadingCheckout(true);
@@ -61,7 +64,8 @@ export const Drawer = () => {
 										<img className="cart__item-title" src={`/img/products/${item.imgUrl}`} width={70} height={70} alt={item.imgAlt}/>
 										<div className="cart__item-info">
 											<p className="cart__item-title">{item.title}</p>
-											<span className="cart__item-price">{item.price}</span>
+											{/* eslint-disable-next-line react-hooks/rules-of-hooks */}
+											<span className="cart__item-price">{useNumberWithSpaces(item.price)}</span>
 										</div>
 										<button className="cart__item-btn-delete" onClick={() => onRemoveItem(item)}>
 											<IconTimes fill="currentColor" />
@@ -75,13 +79,12 @@ export const Drawer = () => {
 								<li className="details-list__item">
 									<span className="details-list__item-key">Налог 5%: </span>
 									<span className="dashed"></span>
-									{/*<span className="details-list__item-value">{totalPrice / 100 * 5} руб.</span>*/}
-									<span className="details-list__item-value">{Math.ceil(totalPrice * 0.05)} руб.</span>
+									<span className="details-list__item-value">{priceTaxWithSpaces}</span>
 								</li>
 								<li className="details-list__item">
 									<span className="details-list__item-key">Итого: </span>
 									<span className="dashed"></span>
-									<span className="details-list__item-value">{totalPrice} руб.</span>
+									<span className="details-list__item-value">{totalPriceWithTaxWithSpaces}</span>
 								</li>
 							</ul>
 							<button

@@ -10,5 +10,3 @@ export const useTotalPriceBasket = () => {
 
 	return {totalPriceWithTax, priceTax}
 }
-
-
