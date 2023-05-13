@@ -61,7 +61,7 @@ export const Drawer = () => {
 							{cartItems.map(item => {
 								return (
 									<div key={item.id} className="cart__item">
-										<img className="cart__item-title" src={`/img/products/${item.imgUrl}`} width={70} height={70} alt={item.imgAlt}/>
+										<img className="cart__item-title" src={`./img/products/${item.imgUrl}`} width={70} height={70} alt={item.imgAlt}/>
 										<div className="cart__item-info">
 											<p className="cart__item-title">{item.title}</p>
 											{/* eslint-disable-next-line react-hooks/rules-of-hooks */}
@@ -101,7 +101,7 @@ export const Drawer = () => {
 					isOrderComplete ? (
 						<DrawerInfo
 							img={{
-								url: '/img/complete-order.png',
+								url: './img/complete-order.png',
 								alt: 'Complete order',
 								width: 83,
 								height: 120
@@ -113,7 +113,7 @@ export const Drawer = () => {
 						) : (
 							<DrawerInfo
 								img={{
-									url: '/img/cart_empty.png',
+									url: './img/cart_empty.png',
 									alt: 'Cart empty',
 									width: 120,
 									height: 120
